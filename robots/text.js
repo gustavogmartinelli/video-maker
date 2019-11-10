@@ -4,6 +4,7 @@ const sentenceBoundaryDetection = require("sbd");
 const algorithmiaKey = require('../credentials/algorithmia.json').apikey;
 const watsonApiKey = require('../credentials/watson_nlu.json').apikey;
 const NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
+const state = require('./state.js');
 
 
 const nlu = new NaturalLanguageUnderstandingV1({
@@ -13,12 +14,14 @@ const nlu = new NaturalLanguageUnderstandingV1({
 })
 
 
-async function robot(content) {
+async function robot() {
+  const content = state.load();
   await fecthContenctFromWikipedia(content);
   sanitizeContent(content);
   breakContentIntoSentences(content);
   limitMaximumSentences(content);
   await fecthKeywordsOfAllSentences(content);
+  state.save(content);
   
 
   async function fecthContenctFromWikipedia(content) {
