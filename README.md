@@ -1,2 +1,2 @@
 # video-maker
-Projeto examplo criado pelo Filipe Deschamps
+Projeto exemplo criado pelo Filipe Deschamps
